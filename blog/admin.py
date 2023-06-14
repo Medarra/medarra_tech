@@ -31,7 +31,7 @@ class CommentAdmin(admin.ModelAdmin):
     )
 
     search_fields = (
-        'post',
+        'post__title',
         'name',
         'text',
         )
