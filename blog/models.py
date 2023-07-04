@@ -23,6 +23,14 @@ class Topic(models.Model):
         return self.name
 
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        return self.filter(status=self.model.DRAFT)
+
+
 class Post(models.Model):
     """
     Represents a Blog Post
@@ -63,6 +71,7 @@ class Post(models.Model):
         blank=True,
         help_text='The date and time this article was published',
     )
+    objects = PostQuerySet.as_manager()
 
     class Meta:
         ordering = ['-created']
